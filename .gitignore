@@ -1,0 +1,11 @@
+﻿#############################################################
+# This is a .gitignore file was  created by Akshay L Aradhya
+#############################################################
+
+
+*.exe
+*.obj
+!AFDEBUG.EXE
+!LINK.EXE
+!MASM.EXE
+
