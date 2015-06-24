@@ -1,0 +1,39 @@
+.MODEL SMALL
+.DATA
+   STR DB "LIRIL"
+   LEN DW $-STR
+   REV DB 05H DUP(?)
+   MSG1 DB 0AH,0DH,"STRING IS A PALINDROME","$"
+   MSG2 DB 0AH,0DH,"STRING IS NOT A PALINDROME","$"
+
+.CODE
+        MOV AX,@DATA
+        MOV DS,AX
+        MOV ES,AX
+        MOV CX,LEN
+        MOV SI,OFFSET STR
+        MOV DI,OFFSET REV
+        ADD SI,CX
+        DEC SI
+BACK :STD
+      LODSB
+      CLD
+      STOSB
+      LOOP BACK
+
+      MOV SI,OFFSET STR
+      MOV DI,OFFSET REV
+      MOV CX,LEN
+      CLD    
+      REPE CMPSB
+      JNZ DOWN
+      LEA DX,MSG1
+      MOV AH,09H
+      INT 21H
+      JMP TER
+DOWN :LEA DX,MSG2
+      MOV AH,09H
+      INT 21H
+TER : MOV AH,4CH
+      INT 21H
+      END
